@@ -4,7 +4,7 @@
 #include <Ethernet.h>
  
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-IPAddress ip(192, 168, 1, 177);
+IPAddress ip(192, 168, 1, 200);
 EthernetServer server(8090);
  
 const int pinLed1 = 3;        // Gobierna el ventilador
@@ -196,7 +196,7 @@ void loop()
           client.println(F("SWR: "));
           client.println(swrValue); 
           client.println(F("<br/><br/>"));
-          client.println(F("<a href='http://192.168.1.177:8090'>Refrescar</a>"));
+          client.println(F("<a href='http://192.168.1.200:8090'>Refrescar</a>"));
           client.println(F("</div>\n</body></html>"));
           break;
         }
