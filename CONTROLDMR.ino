@@ -4,7 +4,7 @@
 #include <Ethernet.h>
  
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-IPAddress ip(192, 168, 1, 177);
+IPAddress ip(192, 168, 1, 200);
 EthernetServer server(8090);
  
 const int pinLed1 = 3;        // Gobierna el ventilador
