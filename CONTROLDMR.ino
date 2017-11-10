@@ -175,7 +175,7 @@ void loop()
           client.println(F("<br/>"));
           client.println(F("<br/><br/>"));
           client.println(F("SWR: "));
-          client.println(F("1:1.2")); 
+          client.println(swr);
           client.println(F("<br/><br/>"));
           client.println(F("<a href='http://192.168.1.177:8090'>Refrescar</a>"));
           client.println(F("</div>\n</body></html>"));
