@@ -1,6 +1,6 @@
 // Control de estado de ventilador de TX y alimentación de emisora de TX del repetidor DMR
 // Por EC4TX
-// EN EDICIÓN, NO ES FUNCIONAL
+// EN EDICIÓN, NO ES FUNCIONAL!!!!!!!!!
 
 #include <SPI.h>
 #include <Ethernet.h>
