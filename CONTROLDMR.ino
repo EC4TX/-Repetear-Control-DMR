@@ -1,12 +1,10 @@
 // Control de estado de ventilador de TX y alimentación de emisora de TX del repetidor DMR
 // Por EC4TX
-// EN EDICIÓN, NO ES FUNCIONAL!!!!!!!!!
-
 #include <SPI.h>
 #include <Ethernet.h>
  
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-IPAddress ip(192, 168, 1, 200);
+IPAddress ip(192, 168, 1, 177);
 EthernetServer server(8090);
  
 const int pinLed1 = 3;        // Gobierna el ventilador
@@ -22,7 +20,17 @@ int index = 0 ;         // Posicion a escribir
 const int N = 32 ;     // Numero de muestras a considerar 
 float Buffer[N] ;
 float Tmedia = 0 ;
- 
+
+int directPin = A4;    // select the input pin for the DIRECT signal
+float directValue = 0;   // variable to store the value coming from the DIRECT
+int reflePin = A5;     // select the input pin for REFLE signal
+float refleValue = 0;    // variable to store the value coming from the REFLE
+int led = 13;  // select the pin for the LED ALARM 
+float swrValue = 0;
+float Powerdirect = 0;
+float Powerdirectcuadra = 0;
+float PowerdirectOK = 0 ;
+
 void setup()
 {
   Serial.begin(9600);
@@ -64,6 +72,17 @@ void loop()
 
 //   for (int i=0 ; i< N ; i++)
 //        Tmedia = Tmedia - Buffer[i] ;
+
+// read the analog DIRECT in value:
+  directValue = (analogRead(directPin)*5.00/1024.00);
+  // read the analog REFLE in value:
+  //delay(5);
+  refleValue = (analogRead(reflePin)*5.00/1024.00); 
+  //delay(5);
+   // Calculo SWR (1+raiz(REF/RIR))/(1-raiz(REF/DIR))
+ swrValue = (1+sqrt(refleValue/directValue))/(1-sqrt(refleValue/directValue));
+   // NO******swrValue = ((directValue+refleValue)/(directValue+refleValue))******;
+
                
        Serial.println("Temperatura TX: ");
        Serial.println(temp) ;
@@ -142,8 +161,8 @@ void loop()
           client.print(F("CONTROL AUTOMATICO = "));
           client.println(digitalRead(pinLed2) == LOW ? "OFF" : "ON");
           client.println(F("<br/>"));
-          client.println(F("<button onClick=location.href='./?data3=0'>ON</button>"));
-          client.println(F("<button onClick=location.href='./?data3=1'>OFF</button>"));
+          client.println(F("<button onClick=location.href='./?data1=0'>ON</button>"));
+          client.println(F("<button onClick=location.href='./?data1=1'>OFF</button>"));
           client.println(F("<br/><br/>"));
           
           client.print(F("Estado Ventilador TX = "));
@@ -175,9 +194,9 @@ void loop()
           client.println(F("<br/>"));
           client.println(F("<br/><br/>"));
           client.println(F("SWR: "));
-          client.println(swr);
+          client.println(swrValue); 
           client.println(F("<br/><br/>"));
-          client.println(F("<a href='http://192.168.1.200:8090'>Refrescar</a>"));
+          client.println(F("<a href='http://192.168.1.177:8090'>Refrescar</a>"));
           client.println(F("</div>\n</body></html>"));
           break;
         }
@@ -196,4 +215,3 @@ void loop()
     client.stop();
   }
 }
-
