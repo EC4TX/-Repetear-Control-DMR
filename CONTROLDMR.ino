@@ -59,11 +59,11 @@ void loop()
 
 
  int lectura3 = analogRead(ten12);
-       float voltaje3 = 15.0 /1024 * lectura3 ;    
+       float voltaje3 = 5.0 /1024 * lectura3 ;    
        float volt12 = voltaje3 * 100 -5 ;
 
  int lectura4 = analogRead(ten5);
-       float voltaje4 = 6.0 /1024 * lectura4 ;    
+       float voltaje4 = 5.0 /1024 * lectura4 ;    
       float volt5 = voltaje4 * 100 -5 ;
 
 //   Buffer[ index] = temp ;
