@@ -142,8 +142,8 @@ void loop()
           client.print(F("CONTROL AUTOMATICO = "));
           client.println(digitalRead(pinLed2) == LOW ? "OFF" : "ON");
           client.println(F("<br/>"));
-          client.println(F("<button onClick=location.href='./?data1=0'>ON</button>"));
-          client.println(F("<button onClick=location.href='./?data1=1'>OFF</button>"));
+          client.println(F("<button onClick=location.href='./?data3=0'>ON</button>"));
+          client.println(F("<button onClick=location.href='./?data3=1'>OFF</button>"));
           client.println(F("<br/><br/>"));
           
           client.print(F("Estado Ventilador TX = "));
